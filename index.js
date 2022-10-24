@@ -88,11 +88,11 @@ app.get("/",async function(req,res){
     try{
     const url=req.query.url;
     console.log(url);
-    const browser=await p.launch({headless:true
-    });
-    console.log(await browser.userAgent());
-   const page=await browser.newPage();
-   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/107.0.5296.0 Safari/537.36')
+    const browser=await p.launch( { args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],});
+    const page=await browser.newPage();
     await page.goto("https://ssstwitter.com/");
     await page.waitForSelector("input[id=main_page_text]");
     await page.type('input[id=main_page_text]',url);
